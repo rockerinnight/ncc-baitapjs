@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập JS</title>
+</head>
+
+<body>
+    <div id="container" style="display:grid; grid-template-columns: 20% 60% 20%;">
+        <div id="left-col"></div>
+        <div id="mid-col" style="display:flex; justify-content: center; flex-direction: column;">
+            <button
+                style="width: 250px; height: 250px; margin: auto; color:white;background-color: red; font-size:xx-large; padding: 35px 10px; border: 3px solid black; border-radius: 50%"
+                id="dont-click-button">Đừng ấn<br>nút này</button>
+            <p style="margin: 10px auto; display: none;">Chọn lớp cần lọc:</p>
+            <select id="ten-lop" style="margin: auto; display: none;">
+                <option value="">Chọn lớp:</option>
+                <option value=".net">.Net</option>
+                <option value="angular">Angular</option>
+                <option value="java">Java</option>
+                <option value="test">Test</option>
+            </select>
+            <p style="margin: 10px auto; display: none;">Bạn chọn tên lớp trước nhé!</p>
+            <select id="ten-sv" style="margin: auto; display: none;">
+                <option value="">Chọn sinh viên:</option>
+                <!-- các option sau khi load -->
+            </select>
+
+        </div>
+        <div id="right-col"></div>
+    </div>
+    <script>
+        let trollButton = document.getElementById("dont-click-button");
+        function f1() {
+            trollButton.innerHTML = `Đừng ấn<br>mà`;
+            trollButton.addEventListener("click", f2);
+        }
+        function f2() {
+            trollButton.innerHTML = `Tại sao<br>vậy?`;
+            trollButton.addEventListener("click", f3);
+        }
+        function f3() {
+            trollButton.innerHTML = `Tôi cảnh báo<br>rồi đó`;
+            trollButton.addEventListener("click", f4);
+        }
+        function f4() {
+            trollButton.innerHTML = `Bạn phải ấn 100 lần mới<br>mở được chức năng này`;
+            trollButton.addEventListener("click", f5);
+        }
+        function f5() {
+            trollButton.innerHTML = `99`;
+            trollButton.addEventListener("click", f6);
+        }
+        function f6() {
+            trollButton.innerHTML = `98`;
+            trollButton.addEventListener("click", f7);
+        }
+        function f7() {
+            trollButton.innerHTML = `97`;
+            trollButton.addEventListener("click", f8);
+        }
+        function f8() {
+            trollButton.innerHTML = `96`;
+            trollButton.addEventListener("click", f9);
+        }
+        function f9() {
+            trollButton.innerHTML = `Thôi đùa đó<br>Tôi sẽ biến mất nếu bạn ấn lần nữa ;)`;
+            trollButton.addEventListener("click", f10);
+        }
+        function f10() {
+            trollButton.innerHTML = `:))`;
+            trollButton.addEventListener("click", f11);
+        }
+        function f11() {
+            trollButton.setAttribute("style", "display: none;");
+            alert("Bạn hiếu kỳ thật đấy\nĐây là những gì tôi đã giấu đi\nHãy chọn tên lớp học để lọc tiếp các TTS nhé!");
+            document.getElementById("mid-col").getElementsByTagName("p")[0].setAttribute("style", "margin: 10px auto;");
+            document.getElementById("ten-lop").setAttribute("style", "margin: auto;")
+        }
+        trollButton.addEventListener("click", f1);
+
+        let classNameList = document.getElementById("ten-lop");
+        let filteredStudentList = [];
+        classNameList.addEventListener("change", function () {
+            document.getElementById("ten-sv").innerHTML = `
+            <option value="">Chọn sinh viên:</option>`;
+            let selectedClass = classNameList.value;
+            if (selectedClass !== "") {
+                document.getElementById("mid-col").getElementsByTagName("p")[1].setAttribute("style", "margin: 10px auto;");
+                document.getElementById("mid-col").getElementsByTagName("p")[1].innerText = `Đây là danh sách sinh viên của lớp ${selectedClass}`;
+                document.getElementById("ten-sv").setAttribute("style", "margin: auto;");
+                for (let index = 0; index < students.length; index++) {
+                    const element = students[index];
+                    if (selectedClass === element.className) {
+                        filteredStudentList.push(element);
+                    }
+                }
+                for (let index = 0; index < filteredStudentList.length; index++) {
+                    const studentName = filteredStudentList[index].name;
+                    document.getElementById("ten-sv").innerHTML += `
+                    <option value="${studentName}">${studentName}</option>
+                    `;
+                }
+                filteredStudentList.splice(0, filteredStudentList.length);
+            }
+        }
+        )
+
+        let students = [
+            { id: 1, name: 'tran van a', className: '.net' },
+            { id: 2, name: 'tran van b', className: '.net' },
+            { id: 3, name: 'tran van c', className: 'angular' },
+            { id: 4, name: 'tran van d', className: 'angular' },
+            { id: 5, name: 'tran van e', className: 'java' },
+            { id: 6, name: 'tran van f', className: 'java' },
+            { id: 7, name: 'tran van g', className: 'java' },
+            { id: 8, name: 'tran van h', className: 'test' },
+            { id: 9, name: 'tran van i', className: 'test' },
+            { id: 10, name: 'tran van j', className: 'test' }
+        ];
+
+        // Khi user chọn 1 option trong id="ten-lop"
+        // thì hiển thị các name TTS có className === att value của option đó
+        // vào trong select tag có id="ten-sv"
+    </script>
+</body>
+
+</html>
